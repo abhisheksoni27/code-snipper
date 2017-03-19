@@ -1,0 +1,33 @@
+{
+  "name": "code-snipper",
+  "version": "0.0.1",
+  "description": "Export code snippets as png",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "canvas": "^1.6.5",
+    "gm": "^1.23.0",
+    "webshot": "^0.18.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhisheksoni27/code-snipper.git"
+  },
+  "keywords": [
+    "snipping",
+    "tool",
+    "code2png",
+    "js",
+    "snippets",
+    "screenshot",
+    "png"
+  ],
+  "author": "Abhishek Soni",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abhisheksoni27/code-snipper/issues"
+  },
+  "homepage": "https://github.com/abhisheksoni27/code-snipper#readme"
+}
