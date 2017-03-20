@@ -4,12 +4,17 @@
   "description": "Export code snippets as png",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "node_modules/.bin/tape tests/*.js | node_modules/.bin/faucet"
   },
   "dependencies": {
     "canvas": "^1.6.5",
     "gm": "^1.23.0",
-    "webshot": "^0.18.0"
+    "webshot": "^0.18.0",
+    "yargs": "^7.0.2"
+  },
+  "devDependencies": {
+    "faucet": "^0.0.1",
+    "tape": "^4.6.3"
   },
   "repository": {
     "type": "git",
