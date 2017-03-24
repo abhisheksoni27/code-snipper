@@ -1,10 +1,13 @@
 {
   "name": "code-snipper",
   "version": "0.0.1",
-  "description": "Export code snippets as png",
-  "main": "index.js",
+  "description": "Export code snippets as PNG",
+  "main": "code-snipper.js",
   "scripts": {
     "test": "node_modules/.bin/tape tests/_tests_.js | node_modules/.bin/tnyan"
+  },
+  "bin": {
+    "codeSnipper": "./cli.js"
   },
   "dependencies": {
     "canvas": "^1.6.5",
@@ -30,7 +33,9 @@
     "js",
     "snippets",
     "screenshot",
-    "png"
+    "png",
+    "text2image",
+    "image2text"
   ],
   "author": "Abhishek Soni",
   "license": "MIT",
