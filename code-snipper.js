@@ -159,7 +159,7 @@ function codeSnipper(fileName, options = opts) {
 
     const imageName = fileName + '.png';
 
-    const imagePath = __dirname + '/../' + fileName;
+    const imagePath = __dirname + '/' + fileName;
     //Read File and prettify code. Synchronous version is used for simplicity
     var sourceCode = '';
     fs.readFile(imagePath, (err, data) => {

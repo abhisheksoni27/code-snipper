@@ -7,7 +7,7 @@
     "test": "node_modules/.bin/tape tests/_tests_.js | node_modules/.bin/tnyan"
   },
   "bin": {
-    "codeSnipper": "./cli/cli.js"
+    "copper": "./cli/cli.js"
   },
   "dependencies": {
     "canvas": "^1.6.5",

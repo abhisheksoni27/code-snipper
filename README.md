@@ -1,6 +1,4 @@
 <!--
-aq!
-
 MIT License
 
 Copyright (c) 2017 Abhishek Soni
@@ -26,7 +24,17 @@ SOFTWARE.
 -->
 # Code Snipper
 
-Export your `JavaScript/JSX`     code as PNG(More formats coming soon), and use them in blog posts, or wherever it is you wanna use them.
+Export your `JavaScript/JSX` code as PNG (More formats coming soon), and use them in blog posts, or wherever it is you wanna use them.
+
+## TOC
+* [Installation](#installation)
+* [Command Line Usage](#command-line-usage)
+* [Syntax](#syntax)
+* [Options](#options)
+* [Module Usage](#module-usage)
+* [Available Themes](#available-themes)
+* [Copyright](#copyright)
+
 
 ## Installation
 
@@ -42,33 +50,26 @@ $ npm install -g code-snipper
 ```
 **Note**: If you want to use it as a library in your project, you can remove the optional `-g` flag above.
 
-## Usage
+## Command Line Usage
 
 Let's say you have a JS file with the following contents:
 
 ```js
-const iterator = 1; 
-for (iterator = 0; iterator < 1; iterator++) { 
-    console.log("NICE WORK!");
-    console.log("NICE WORK!");
-    console.log("NICE WORK!");
-    iterator++;
-}
-while(1){
-    //dance
+const success = 'false';
+while(!success){
+    keepWorking();
 }
 ```
-
-And now you want to send the snippet to your boss, or you are writing a blog post about how functions work in JS, all you have to do is input the following command at your terminal:
+To generate an Image for the above code snippet:
 
 ```bash
 $ copper index.js
 ```
 
-This will  an image named index.png.
+This will save an image named `index.js.png` with the above JS code.
 
-#### image.png
-
+#### image.js.png
+![Example Image](/examples/example.js.png)
 
 ## Syntax
 
@@ -83,3 +84,77 @@ $ copper (filename) [options|flags]
 **options** : a CLI option (used as `--flag` `value`) 
 
 ## Options
+
+## `-t, --theme` : defines theme
+
+To change the theme, pass this argument. To see the available themes, see [themes.md](/themes.md)
+
+```bash
+$ copper index.js -t hybrid //uses 'hybrid' instead of default theme
+```
+
+## `-f, --font` : defines font
+
+You can use any font pre-installed in your system. (**Google Fonts** support is on the list of things to be added.)
+
+```bash
+$ copper index.js -f Raleway //uses 'Raleway' instead of 'Source Code Pro'
+```
+## `-r, --resolution` : defines resolution(zoomFactor)
+
+This flag changes the size of the image.
+
+```bash
+$ copper index.js -r 2
+```
+
+## `--fontSize` : defines font size
+
+Change the default font size. (Don't pass in units, or it won't work.)
+
+```bash
+$ copper index.js --fontSize 25 Raleway //uses '25px' instead of '20px'
+```
+---
+
+## Module Usage
+
+**Step 1.** Require the module
+```js
+const copper = require('code-snipper');
+```
+
+**Step 2.** Use it.
+```js
+copper(fileName, options);
+```
+#### `fileName` **required**
+Name of the file containing the code snippet.
+####  `options` **optional**
+An object via which you can pass in the following parameters.
+
+* theme &ndash; See Available Themes
+* font &ndash; Any font installed on your machine.
+* fontSize &ndash; Without units.
+* resolution &ndash; Make the image fatter
+
+##### Default `options` object
+```js
+{
+    resolution: 1,
+    theme: 'hybrid',
+    font: 'Source Code Pro',
+    fontSize: 20,
+    background: '#fff'
+}
+```
+
+
+## Available Themes
+
+All the themes available in [hightlight.js](https://highlightjs.org/) can be used. The list can be found at [Themes.md](/themes.md)
+
+To check out how each theme looks, check this [Highlight.js demo](https://highlightjs.org/static/demo/):
+
+## Copyright
+© 2017 Made by Abhishek Soni. 
