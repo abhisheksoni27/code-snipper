@@ -73,7 +73,7 @@ $ copper index.js
 This will save an image named `index.js.png` with the above JS code.
 
 #### image.js.png
-![Example Image](/examples/example.js.png)
+![Example Image](https://github.com/abhisheksoni27/code-snipper/blob/master/examples/example.js.png)
 
 ## Syntax
 
