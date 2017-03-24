@@ -24,7 +24,7 @@ SOFTWARE.
 -->
 # Code Snipper
 
-Export your `JavaScript/JSX` code as PNG (More formats coming soon), and use them in blog posts, or wherever it is you wanna use them.
+Export your `JavaScript` code as PNG (More formats coming soon), and use them in blog posts, or wherever it is you wanna use them.
 
 [![npm](https://img.shields.io/npm/dt/code-snipper.svg)](https://npmjs.com/packages/code-snipper)
 [![npm](https://img.shields.io/npm/l/code-snipper.svg)](https://npmjs.com/packages/code-snipper)
