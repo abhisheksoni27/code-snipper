@@ -1,6 +1,6 @@
 {
   "name": "code-snipper",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Export code snippets as PNG",
   "main": "code-snipper.js",
   "scripts": {
@@ -39,5 +39,5 @@
   "bugs": {
     "url": "https://github.com/abhisheksoni27/code-snipper/issues"
   },
-  "homepage": "https://github.com/abhisheksoni27/code-snipper#readme"
+  "homepage": "https://github.com/abhisheksoni27/code-snipper"
 }
