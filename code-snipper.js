@@ -1,6 +1,5 @@
 const fs = require('fs');
 const webshot = require('webshot');
-const cheerio = require('cheerio');
 const request = require('request');
 const utility = require('./utility/utility.js');
 const gm = require('gm').subClass({'imageMagick': true});
