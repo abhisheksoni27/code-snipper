@@ -1,7 +1,18 @@
-const iterator = 1; 
-for (iterator = 0; iterator < 1; iterator++) { 
-    console.log("NICE WORK!");console.log("NICE WORK!");console.log("NICE WORK!");
+import defaultMember from "module-name";
+const iterator = 1;
+for (iterator = 0; iterator < 1; iterator++) {
     iterator++;
+
 }
-while(1){//dance
+while (10) { 
+    //dance
+    awesome  = ()=>{
+        code.code();
+    }
+}
+while (10) { 
+    //dance
+    awesome  = ()=>{
+        code.code();
+    }
 }

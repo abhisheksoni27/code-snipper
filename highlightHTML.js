@@ -3,10 +3,14 @@ const fs = require('fs');
 const webshot = require('webshot');
 const gm = require('gm').subClass({imageMagick: true});
 
+
+
 var options = {
     siteType: 'html',
     zoomFactor: 2.0
 }
+
+
 
 fs.readFile('practice.js', (err, data) => {
     if (!err) {

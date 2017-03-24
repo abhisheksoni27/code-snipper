@@ -28,13 +28,14 @@ const random = () => {
   return Math.floor(Math.random() * 5);
 }
 
+
 const l = (s) => {
   console.log(s);
   return 0;
 }
 
-const prettify = (source, ext) => {
 
+const prettify = (source, ext) => {
   return prettier.format(source, {
     printWidth: 80,
     tabWidth: 4,

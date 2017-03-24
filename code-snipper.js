@@ -1,12 +1,17 @@
 const fs = require('fs');
 const webshot = require('webshot');
+const cheerio = require('cheerio');
+const request = require('request');
+const utility = require('./utility.js');
+const gm = require('gm').subClass({'imageMagick': true});
 const VERSION = '9.10.0';
 
 const opts = {
-    resolution: 2.5,
-    theme: 'hopscotch',
-    font: 'Monoid',
-    fontSize: 20
+    resolution: 1,
+    theme: 'hybrid',
+    font: 'Source Code Pro',
+    fontSize: 20,
+    background: '#fff'
 }
 
 /**
@@ -30,6 +35,9 @@ function checkFileExtension(fileName) {
     return ext;
 }
 
+function insertMissingOptions(options) {
+    return Object.assign(opts, options);
+}
 /**
  * Prettify code based on the extension of the file.
  */
@@ -51,16 +59,40 @@ const prettify = (source, ext) => {
             }
 
         case '.jsx':
+            {
+                //TODO
+            }
     }
 
 }
 
-/**
- * Generates HTML.
- * Step 1. Initialize.
- * Step 2. Add proper font, and fontSize using options.
- * Step 3. Add css file name using theme option.
- */
+function setBackground(cssURL, options) {
+    request(cssURL, function (error, response, html) {
+        if (!error && response.statusCode == 200) {
+            let location,
+                firstOccurence,
+                backgroundOccurence,
+                semiColonOccurence,
+                colonOccurence;
+            let sliced;
+
+            location = html
+                .toString()
+                .indexOf('.hljs{');
+            sliced = html.slice(location);
+            firstOccurence = sliced.indexOf('}') + 1;
+            sliced = sliced.slice(0, firstOccurence);
+            backgroundOccurence = sliced.indexOf('background');
+            sliced = sliced.slice(backgroundOccurence);
+            colonOccurence = sliced.indexOf(':') + 1;
+            semiColonOccurence = sliced.indexOf(';');
+            sliced = sliced.slice(colonOccurence, semiColonOccurence);
+            options['background'] = sliced;
+
+        }
+    });
+}
+
 
 function generateHTML(sourceCode, options) {
     let htmlTag = 'html';
@@ -79,27 +111,31 @@ function generateHTML(sourceCode, options) {
 
     let cssURL = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${VERSION}/styles/${theme}`;
 
+    setBackground(cssURL, options);
+
     let scriptURL = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${VERSION}/highlight.min.js`;
 
-    let style = options.style || `{font-family: ${options.font}; font-size:${options.fontSize};}`
+    let style = options.style || `code{font-family: '${options.font}'; font-size:${options.fontSize}px; padding:20px}`;
 
-    return `
-    <${html}>
-    <${head}> 
-    <${styleTag}>
-        ${style}
-    </${styleTag}> 
-    <link rel="stylesheet" href="${cssURL}"/> 
-    <script src=${scriptURL}> 
-    </${head}>
-    <${body}>
-    <${pre}>
-        <${code}>
-            ${sourceCode}
-        </${code}>
-    </${pre}>
-    </${body}
-    </${html}>
+    return `<${htmlTag}>
+    <${headTag}> 
+        <${styleTag}>
+            ${style}
+        </${styleTag}> 
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+        <link rel="stylesheet" href="${cssURL}" /> 
+        <script src="${scriptURL}"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        
+    </${headTag}>
+    <${bodyTag}>
+    <${preTag}>
+    <${codeTag}>
+${sourceCode}
+    </${codeTag}>
+    </${preTag}>
+    </${bodyTag}}    
+    </${htmlTag}>
     `;
 
 }
@@ -114,6 +150,8 @@ function codeSnipper(fileName, options = opts) {
     //Add extension to the options
     options['ext'] = checkFileExtension(fileName);
 
+    options = insertMissingOptions(options);
+
     // Initialize webshot's configuration, setting resolution(zoomFactor) if passed.
     var webshotConfig = {
         siteType: 'html',
@@ -123,18 +161,37 @@ function codeSnipper(fileName, options = opts) {
     const imageName = fileName + '.png';
 
     //Read File and prettify code. Synchronous version is used for simplicity
-    const sourceCode = prettify(fs.readFileSync(fileName), options.ext);
+    var sourceCode = '';
+    fs.readFile(fileName, (err, data) => {
 
-    //Generate HTML
-    const htmlString = generateGenericHTML(sourceCode, options);
+        if(err) {console.log(fileName);throw new Error(err);}
 
-    //Generate Image
-    webshot(sourceCode, imageName, webshotConfig, (err) => {
-        if (!err) 
-            console.log('Image successfully saved as %s', imageName);
-        else {
-            throw new Error(err)
-        }
-        return;
+        sourceCode = utility.prettify(data.toString(), options.ext);
+
+        //Generate HTML
+        const htmlString = generateHTML(sourceCode, options);
+
+        webshot(htmlString, imageName, webshotConfig, (err) => {
+            if (!err) {
+                console.log('Image successfully saved as %s', imageName);
+                gm(imageName)
+                    .trim()
+                    .trim()
+                    .borderColor(options.background)
+                    .border(20, 20)
+                    .write(imageName, (err) => {
+                        if (err) {
+                            throw new Error(err)
+                        }
+                    });
+            } else {
+                throw new Error(err)
+            }
+            return;
+        });
+
     });
+    return 0;
 }
+
+module.exports = codeSnipper;

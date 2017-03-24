@@ -1,7 +1,9 @@
 //#!usr/bin/env node
 const cli = require('yargs');
 
-var arguments = cli
+const codeSnipper = require('./code-snipper.js');
+
+var passedArguments = cli
     .usage('Usage: code-snipper <file-name> [options]')
     .help('h')
     .describe('r', 'Change resolution(1-5)')
@@ -12,7 +14,7 @@ var arguments = cli
     .alias('r', 'resolution')
     .alias('t', 'theme')
     .alias('f', 'font')
-    .example('code-snipper index.js', 'Prints index.js with default config')
+    .example('codeSnipper index.js', 'Prints index.js with default config')
     .epilog('© 2017')
     .argv;
 
@@ -21,13 +23,15 @@ var arguments = cli
 const options = {};
 
 //delete optional options
-for (key in arguments) {
+for (key in passedArguments) {
     //if value is not undefined/false/null, add it to options Object
-    if (arguments[key]) {
-        options[key] = arguments[key]
+    if (passedArguments[key]) {
+        options[key] = passedArguments[key]
     }
 }
 
-//codeSnipper(fileName, options)
+const fileName = passedArguments._[0];
 
-//fileName: argv._[0]
+codeSnipper(fileName, options);
+
+//codeSnipper(fileName, options)

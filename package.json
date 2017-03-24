@@ -4,16 +4,19 @@
   "description": "Export code snippets as png",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/tape tests/*.js | node_modules/.bin/faucet"
+    "test": "node_modules/.bin/tape tests/_tests_.js | node_modules/.bin/tnyan"
   },
   "dependencies": {
     "canvas": "^1.6.5",
+    "cheerio": "^0.22.0",
+    "cssparser": "^0.9.2",
     "gm": "^1.23.0",
+    "prettier": "^0.22.0",
     "webshot": "^0.18.0",
     "yargs": "^7.0.2"
   },
   "devDependencies": {
-    "faucet": "^0.0.1",
+    "tap-nyan": "^1.1.0",
     "tape": "^4.6.3"
   },
   "repository": {
