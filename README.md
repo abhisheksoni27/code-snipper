@@ -29,6 +29,8 @@ Export your `JavaScript/JSX` code as PNG (More formats coming soon), and use the
 [![npm](https://img.shields.io/npm/dt/code-snipper.svg)](https://npmjs.com/packages/code-snipper)
 [![npm](https://img.shields.io/npm/l/code-snipper.svg)](https://npmjs.com/packages/code-snipper)
 
+![Example Image](https://raw.githubusercontent.com/abhisheksoni27/code-snipper/master/examples/index.js.png)
+
 
 ## TOC
 * [Installation](#installation)
