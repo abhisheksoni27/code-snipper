@@ -10,9 +10,6 @@
     "copper": "./cli/cli.js"
   },
   "dependencies": {
-    "canvas": "^1.6.5",
-    "cheerio": "^0.22.0",
-    "cssparser": "^0.9.2",
     "gm": "^1.23.0",
     "prettier": "^0.22.0",
     "webshot": "^0.18.0",
