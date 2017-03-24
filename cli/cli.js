@@ -1,7 +1,8 @@
-//#!usr/bin/env node
+#!/usr/bin/env node
+
 const cli = require('yargs');
 
-const codeSnipper = require('./code-snipper.js');
+const codeSnipper = require(__dirname+'/../code-snipper.js');
 
 var passedArguments = cli
     .usage('Usage: code-snipper <file-name> [options]')

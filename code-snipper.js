@@ -93,7 +93,6 @@ function setBackground(cssURL, options) {
     });
 }
 
-
 function generateHTML(sourceCode, options) {
     let htmlTag = 'html';
 
@@ -160,11 +159,15 @@ function codeSnipper(fileName, options = opts) {
 
     const imageName = fileName + '.png';
 
+    const imagePath = __dirname + '/../' + fileName;
     //Read File and prettify code. Synchronous version is used for simplicity
     var sourceCode = '';
-    fs.readFile(fileName, (err, data) => {
+    fs.readFile(imagePath, (err, data) => {
 
-        if(err) {console.log(fileName);throw new Error(err);}
+        if (err) {
+            console.log(fileName);
+            throw new Error(err);
+        }
 
         sourceCode = utility.prettify(data.toString(), options.ext);
 
