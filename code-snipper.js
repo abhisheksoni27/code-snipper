@@ -2,7 +2,10 @@ const fs = require('fs');
 const webshot = require('webshot');
 const request = require('request');
 const utility = require('./utility/utility.js');
-const gm = require('gm').subClass({'imageMagick': true});
+const gm = require('gm').subClass({
+    'imageMagick': true
+});
+const path = require('path');
 const VERSION = '9.10.0';
 
 const opts = {
@@ -25,10 +28,10 @@ function checkFileExtension(fileName) {
 
     const ext = '';
 
-    if (fileName.endsWith('.js')) 
+    if (fileName.endsWith('.js'))
         return '.js';
-    
-    if (fileName.endsWith('.jsx')) 
+
+    if (fileName.endsWith('.jsx'))
         return '.jsx'
 
     return ext;
@@ -155,16 +158,16 @@ function codeSnipper(fileName, options = opts) {
         siteType: 'html',
         zoomFactor: options.resolution || 2.5
     }
+    
+    const imagePath = process.cwd() + path.sep + fileName;
 
-    const imageName = fileName + '.png';
+    const imageName = imagePath + '.png';
 
-    const imagePath = __dirname + '/' + fileName;
     //Read File and prettify code. Synchronous version is used for simplicity
     var sourceCode = '';
     fs.readFile(imagePath, (err, data) => {
 
         if (err) {
-            console.log(fileName);
             throw new Error(err);
         }
 
