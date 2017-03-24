@@ -74,7 +74,7 @@ This will save an image named `index.js.png` with the above JS code.
 
 #### image.js.png
 
-![Example Image](https://raw.githubusercontent.com/abhisheksoni27/code-snipper/master/examples/example.js.png)
+![Example Image](https://raw.githubusercontent.com/abhisheksoni27/code-snipper/master/examples/index.js.png)
 
 ## Syntax
 

@@ -28,7 +28,6 @@ const random = () => {
   return Math.floor(Math.random() * 5);
 }
 
-
 const l = (s) => {
   console.log(s);
   return 0;
