@@ -39,6 +39,7 @@ Export your `JavaScript` code as PNG (More formats coming soon), and use them in
 * [Options](#options)
 * [Module Usage](#module-usage)
 * [Available Themes](#available-themes)
+* [Contributing](#contributing)
 * [Copyright](#copyright)
 
 
@@ -162,6 +163,17 @@ An object via which you can pass in the following parameters.
 All the themes available in [hightlight.js](https://highlightjs.org/) can be used. The list can be found at [Themes.md](/themes.md)
 
 To check out how each theme looks, check this [Highlight.js demo](https://highlightjs.org/static/demo/):
+
+## Contributing
+You're welcome to fix any bugs,  or add new features. Just fork the project, work on your local copy, and send a PR against `master` branch.
+
+**1.** Fork this repo. (That button in the `top-right corner` of this page.)
+
+**2.** Make a `local` copy, by cloning your forked copy.
+
+**3.** `Fix` whatever it is you think needs fixing.
+
+**4.** Send a PR against `master` branch.
 
 ## Copyright
 © 2017 Made by Abhishek Soni. 
