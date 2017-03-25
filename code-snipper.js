@@ -2,6 +2,7 @@ const fs = require('fs');
 const webshot = require('webshot');
 const request = require('request');
 const utility = require('./utility/utility.js');
+const styleNames = require('./utility/styleNames.js');
 const gm = require('gm').subClass({
     'imageMagick': true
 });
@@ -68,6 +69,11 @@ const prettify = (source, ext) => {
 
 }
 
+function checkIfThemeExists(themeName){
+    if(styleNames.indexOf(themeName)!==-1) return true;
+    return false;
+}
+
 function setBackground(cssURL, options) {
     request(cssURL, function (error, response, html) {
         if (!error && response.statusCode == 200) {
@@ -108,7 +114,10 @@ function generateHTML(sourceCode, options) {
 
     let styleTag = 'style'
 
-    let theme = `${options.theme}.min.css`;
+    let themeName = options.theme.toLowerCase();
+    
+    let theme = checkIfThemeExists(themeName) ? `${themeName}.min.css` : 'hybrid.min.css';
+
 
     let cssURL = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${VERSION}/styles/${theme}`;
 
