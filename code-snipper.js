@@ -3,6 +3,7 @@ const webshot = require('webshot');
 const request = require('request');
 const utility = require('./utility/utility.js');
 const styleNames = require('./utility/styleNames.js');
+const prettier = require('prettier');
 const gm = require('gm').subClass({
     'imageMagick': true
 });
@@ -32,9 +33,6 @@ function checkFileExtension(fileName) {
     if (fileName.endsWith('.js'))
         return '.js';
 
-    if (fileName.endsWith('.jsx'))
-        return '.jsx'
-
     return ext;
 }
 
@@ -61,10 +59,9 @@ const prettify = (source, ext) => {
                 });
             }
 
-        case '.jsx':
-            {
-                //TODO
-            }
+        default: {
+            return source;
+        }
     }
 
 }
@@ -180,7 +177,7 @@ function codeSnipper(fileName, options = opts) {
             throw new Error(err);
         }
 
-        sourceCode = utility.prettify(data.toString(), options.ext);
+        sourceCode = prettify(data.toString(), options.ext);
 
         //Generate HTML
         const htmlString = generateHTML(sourceCode, options);

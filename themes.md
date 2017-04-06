@@ -1,4 +1,4 @@
-Here's a list of themes that you can use to change the apperance of the image which is **pooped** out by `copper`.
+Here's a list of themes that you can use to change the apperance of the image **pooped** out by `copper`.
 
 * default
 * agate
