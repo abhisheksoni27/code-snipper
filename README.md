@@ -152,8 +152,7 @@ An object via which you can pass in the following parameters.
     resolution: 1,
     theme: 'hybrid',
     font: 'Source Code Pro',
-    fontSize: 20,
-    background: '#fff'
+    fontSize: 20
 }
 ```
 
