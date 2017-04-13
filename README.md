@@ -24,9 +24,9 @@ SOFTWARE.
 -->
 # Code Snipper
 
-Export your code as PNG, and use them in blog posts, or wherever it is you wanna use them.
+Export your code as PNG, and use them in blog posts, or wherever it is you wanna use them
 
-[![npm](https://img.shields.io/npm/dt/code-snipper.svg)](https://npmjs.com/packages/code-snipper)
+[![npm](https://img.shields.io/npm/dm/code-snipper.svg?style=flat-square)](https://www.npmjs.com/package/code-snipper)
 [![npm](https://img.shields.io/npm/l/code-snipper.svg)](https://npmjs.com/packages/code-snipper)
 
 ![Example Image](https://raw.githubusercontent.com/abhisheksoni27/code-snipper/master/examples/index.js.png)
