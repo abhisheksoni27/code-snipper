@@ -87,7 +87,7 @@ The basic syntax for the `copper` command is,
 $ copper (filename) [options|flags]
 ```
 
-**filename** : Can be a JavaScript or a JSX file.
+**filename** : Can be any source code file. (.js, .html, .sh, .cc, etc.,)
 
 **options** : a CLI option (used as `--flag` `value`) 
 
