@@ -1,6 +1,6 @@
 {
   "name": "code-snipper",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Export code snippets as PNG",
   "main": "code-snipper.js",
   "scripts": {
@@ -34,7 +34,10 @@
     "text2image",
     "image2text",
     "highlight",
-    "syntax"
+    "syntax",
+    "photo",
+    "text",
+    "image"
   ],
   "author": "Abhishek Soni",
   "license": "MIT",
