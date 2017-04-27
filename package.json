@@ -1,6 +1,6 @@
 {
   "name": "code-snipper",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "Export code snippets as PNG",
   "main": "code-snipper.js",
   "scripts": {
