@@ -45,7 +45,7 @@ Export your code as PNG, and use them in blog posts, or wherever it is you wanna
 
 ## Installation
 
-We are sticking with `yarn` for it's speed but you can use `npm`.
+We are sticking with `yarn` for its speed but you can use `npm`.
 
 ```bash
 $ yarn add code-snipper
