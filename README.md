@@ -123,6 +123,7 @@ Change the default font size. (Don't pass in units, or it won't work.)
 ```bash
 $ copper index.js --fontSize 25 Raleway //uses '25px' instead of '20px'
 ```
+
 ---
 
 ## Module Usage
@@ -152,9 +153,28 @@ An object via which you can pass in the following parameters.
     resolution: 1,
     theme: 'hybrid',
     font: 'Source Code Pro',
-    fontSize: 20
-}
+    fontSize: 20,
+    background: '#fff',
+    prettify: true, // use prettify to format `js`
+    style: null, // override code styles injected by theme
+    webshotCustomConfig: { // Using webshot default options
+        shotSize: {
+            width: 'window',
+            height: 'window'
+        },
+        windowSize: {
+            width: 1024,
+            height: 768
+        },
+        shotOffset: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+        }
+    }
 ```
+*See [webshot](https://www.npmjs.com/package/webshot) for a description of webshot options.*
 
 
 ## Available Themes

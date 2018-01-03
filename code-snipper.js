@@ -213,9 +213,5 @@ function codeSnipper(fileName, options = opts) {
     });
     return 0;
 }
-codeSnipper('package.json', {
-    theme: 'solarized-dark',
-    webshotCustomConfig: {}
-});
 
 module.exports = codeSnipper;
