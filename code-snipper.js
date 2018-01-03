@@ -1,21 +1,13 @@
 const fs = require('fs');
 
 const webshot = require('webshot');
-
 const request = require('request');
-
-const utility = require('./utility/utility.js');
-
 const styleNames = require('./utility/styleNames.js');
-
 const prettier = require('prettier');
-
 const untildify = require('untildify');
-
 const gm = require('gm').subClass({
     'imageMagick': true
 });
-
 const path = require('path');
 
 const VERSION = '9.10.0';
