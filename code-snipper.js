@@ -23,7 +23,25 @@ const opts = {
     theme: 'hybrid',
     font: 'Source Code Pro',
     fontSize: 20,
-    background: '#fff'
+    background: '#fff',
+    prettify: true, // use prettify to format `js`
+    style: null, // override code styles injected by theme
+    webshotCustomConfig: { // Using webshots default options
+        shotSize: {
+            width: 'window',
+            height: 'window'
+        },
+        windowSize: {
+            width: 1024,
+            height: 768
+        },
+        shotOffset: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+        }
+    }
 }
 
 /**
@@ -35,13 +53,10 @@ const opts = {
  */
 
 function checkFileExtension(fileName) {
-
-    const ext = '';
-
-    if (fileName.endsWith('.js'))
+    if (fileName.endsWith('.js')) {
         return '.js';
-
-    return ext;
+    }
+    return '';
 }
 
 function insertMissingOptions(options) {
@@ -107,22 +122,9 @@ function setBackground(cssURL, options) {
 }
 
 function generateHTML(sourceCode, options) {
-    let htmlTag = 'html';
-
-    let bodyTag = 'body';
-
-    let headTag = 'head';
-
-    let preTag = 'pre';
-
-    let codeTag = 'code';
-
-    let styleTag = 'style'
-
     let themeName = options.theme.toLowerCase();
     
     let theme = checkIfThemeExists(themeName) ? `${themeName}.min.css` : 'hybrid.min.css';
-
 
     let cssURL = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${VERSION}/styles/${theme}`;
 
@@ -132,25 +134,24 @@ function generateHTML(sourceCode, options) {
 
     let style = options.style || `code{font-family: '${options.font}'; font-size:${options.fontSize}px; padding:20px}`;
 
-    return `<${htmlTag}>
-    <${headTag}> 
-        <${styleTag}>
+    return `<html>
+    <head> 
+        <style>
             ${style}
-        </${styleTag}> 
+        </style> 
         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
         <link rel="stylesheet" href="${cssURL}" /> 
         <script src="${scriptURL}"></script>
         <script>hljs.initHighlightingOnLoad();</script>
-        
-    </${headTag}>
-    <${bodyTag}>
-    <${preTag}>
-    <${codeTag}>
+    </head>
+    <body>
+    <pre>
+    <code>
 ${sourceCode}
-    </${codeTag}>
-    </${preTag}>
-    </${bodyTag}}    
-    </${htmlTag}>
+    </code>
+    </pre>
+    </body}    
+    </html>
     `;
 
 }
@@ -168,10 +169,10 @@ function codeSnipper(fileName, options = opts) {
     options = insertMissingOptions(options);
 
     // Initialize webshot's configuration, setting resolution(zoomFactor) if passed.
-    var webshotConfig = {
+    let webshotConfig = Object.assign({
         siteType: 'html',
         zoomFactor: options.resolution || 2.5
-    }
+    }, options.webshotCustomConfig || {});
     
     const imagePath = process.cwd() + path.sep + fileName;
 
@@ -185,7 +186,7 @@ function codeSnipper(fileName, options = opts) {
             throw new Error(err);
         }
 
-        sourceCode = prettify(data.toString(), options.ext);
+        sourceCode = options.prettify ? prettify(data.toString(), options.ext) : data.toString();
 
         //Generate HTML
         const htmlString = generateHTML(sourceCode, options);
@@ -212,5 +213,9 @@ function codeSnipper(fileName, options = opts) {
     });
     return 0;
 }
+codeSnipper('package.json', {
+    theme: 'solarized-dark',
+    webshotCustomConfig: {}
+});
 
 module.exports = codeSnipper;
