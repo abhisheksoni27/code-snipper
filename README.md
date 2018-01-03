@@ -93,6 +93,14 @@ $ copper (filename) [options|flags]
 
 ## Options
 
+## `-o, --output` : define output path
+
+Define the output filepath for image. Defaults to: `location/of/file.png`
+
+```bash
+$ copper index.js --output ~/index.png
+```
+
 ## `-t, --theme` : defines theme
 
 To change the theme, pass this argument. To see the available themes, see [themes.md](/themes.md)

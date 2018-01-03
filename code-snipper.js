@@ -10,6 +10,8 @@ const styleNames = require('./utility/styleNames.js');
 
 const prettier = require('prettier');
 
+const untildify = require('untildify');
+
 const gm = require('gm').subClass({
     'imageMagick': true
 });
@@ -24,6 +26,7 @@ const opts = {
     font: 'Source Code Pro',
     fontSize: 20,
     background: '#fff',
+    output: null,
     prettify: true, // use prettify to format `js`
     style: null, // override code styles injected by theme
     webshotCustomConfig: { // Using webshots default options
@@ -174,9 +177,10 @@ function codeSnipper(fileName, options = opts) {
         zoomFactor: options.resolution || 2.5
     }, options.webshotCustomConfig || {});
     
+    
     const imagePath = process.cwd() + path.sep + fileName;
 
-    const imageName = imagePath + '.png';
+    const imageName = options.output ? untildify(options.output) : imagePath + '.png';
 
     //Read File and prettify code. Synchronous version is used for simplicity
     var sourceCode = '';
@@ -213,5 +217,6 @@ function codeSnipper(fileName, options = opts) {
     });
     return 0;
 }
+
 
 module.exports = codeSnipper;
