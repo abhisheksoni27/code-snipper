@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const webshot = require('webshot');
 const request = require('request');
@@ -6,9 +7,8 @@ const styleNames = require('./utility/styleNames.js');
 const prettier = require('prettier');
 const untildify = require('untildify');
 const gm = require('gm').subClass({
-    'imageMagick': true
+    imageMagick: true
 });
-const path = require('path');
 
 const VERSION = '9.10.0';
 
@@ -21,7 +21,8 @@ const opts = {
     output: null,
     prettify: true, // use prettify to format `js`
     style: null, // override code styles injected by theme
-    webshotCustomConfig: { // Using webshots default options
+    webshotCustomConfig: {
+        // Using webshots default options
         shotSize: {
             width: 'window',
             height: 'window'
@@ -37,7 +38,7 @@ const opts = {
             left: 0
         }
     }
-}
+};
 
 /**
  * Function to check whether file is JS or JSX.
@@ -55,42 +56,38 @@ function checkFileExtension(fileName) {
 }
 
 function insertMissingOptions(options) {
-    return Object.assign(opts, options);
+    return { ...opts, ...options };
 }
 /**
  * Prettify code based on the extension of the file.
  */
 
 const prettify = (source, ext) => {
-
     switch (ext) {
-        case '.js':
-            {
-
-                return prettier.format(source, {
-                    printWidth: 80,
-                    tabWidth: 4,
-                    singleQuote: true,
-                    trailingComma: "none",
-                    bracketSpacing: true,
-                    parser: 'babylon'
-                });
-            }
+        case '.js': {
+            return prettier.format(source, {
+                printWidth: 80,
+                tabWidth: 4,
+                singleQuote: true,
+                trailingComma: 'none',
+                bracketSpacing: true,
+                parser: 'babylon'
+            });
+        }
 
         default: {
             return source;
         }
     }
+};
 
-}
-
-function checkIfThemeExists(themeName){
-    if(styleNames.indexOf(themeName)!==-1) return true;
+function checkIfThemeExists(themeName) {
+    if (styleNames.indexOf(themeName) !== -1) return true;
     return false;
 }
 
 function setBackground(cssURL, options) {
-    request(cssURL, function (error, response, html) {
+    request(cssURL, function(error, response, html) {
         if (!error && response.statusCode == 200) {
             let location,
                 firstOccurence,
@@ -99,9 +96,7 @@ function setBackground(cssURL, options) {
                 colonOccurence;
             let sliced;
 
-            location = html
-                .toString()
-                .indexOf('.hljs{');
+            location = html.toString().indexOf('.hljs{');
             sliced = html.slice(location);
             firstOccurence = sliced.indexOf('}') + 1;
             sliced = sliced.slice(0, firstOccurence);
@@ -111,15 +106,16 @@ function setBackground(cssURL, options) {
             semiColonOccurence = sliced.indexOf(';');
             sliced = sliced.slice(colonOccurence, semiColonOccurence);
             options['background'] = sliced;
-
         }
     });
 }
 
 function generateHTML(sourceCode, options) {
     let themeName = options.theme.toLowerCase();
-    
-    let theme = checkIfThemeExists(themeName) ? `${themeName}.min.css` : 'hybrid.min.css';
+
+    let theme = checkIfThemeExists(themeName)
+        ? `${themeName}.min.css`
+        : 'hybrid.min.css';
 
     let cssURL = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${VERSION}/styles/${theme}`;
 
@@ -127,7 +123,8 @@ function generateHTML(sourceCode, options) {
 
     let scriptURL = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${VERSION}/highlight.min.js`;
 
-    let style = options.style || `code{font-family: '${options.font}'; font-size:${options.fontSize}px; padding:20px}`;
+    let style = options.style ||
+        `code{font-family: '${options.font}'; font-size:${options.fontSize}px; padding:20px}`;
 
     return `<html>
     <head> 
@@ -142,13 +139,12 @@ function generateHTML(sourceCode, options) {
     <body>
     <pre>
     <code>
-${sourceCode}
+        ${sourceCode}
     </code>
     </pre>
     </body}    
     </html>
     `;
-
 }
 
 /**Main function.
@@ -157,37 +153,40 @@ ${sourceCode}
  */
 
 function codeSnipper(fileName, options = opts) {
-
-    //Add extension to the options
-    options['ext'] = checkFileExtension(fileName);
-
-    options = insertMissingOptions(options);
+    options = {
+        ...opts,
+        ext: checkFileExtension(fileName),
+        ...options
+    };
 
     // Initialize webshot's configuration, setting resolution(zoomFactor) if passed.
-    let webshotConfig = Object.assign({
+    let webshotConfig = {
         siteType: 'html',
-        zoomFactor: options.resolution || 2.5
-    }, options.webshotCustomConfig || {});
-    
-    
-    const imagePath = process.cwd() + path.sep + fileName;
+        zoomFactor: options.resolution || 2.5,
+        ...options.webshotCustomConfig
+    };
 
-    const imageName = options.output ? untildify(options.output) : imagePath + '.png';
+    const imagePath = path.join(process.cwd(), fileName);
+
+    const imageName = options.output
+        ? untildify(options.output)
+        : imagePath + '.png';
 
     //Read File and prettify code. Synchronous version is used for simplicity
-    var sourceCode = '';
+    let sourceCode = '';
     fs.readFile(imagePath, (err, data) => {
-
         if (err) {
             throw new Error(err);
         }
 
-        sourceCode = options.prettify ? prettify(data.toString(), options.ext) : data.toString();
+        sourceCode = options.prettify
+            ? prettify(data.toString(), options.ext)
+            : data.toString();
 
         //Generate HTML
         const htmlString = generateHTML(sourceCode, options);
 
-        webshot(htmlString, imageName, webshotConfig, (err) => {
+        webshot(htmlString, imageName, webshotConfig, err => {
             if (!err) {
                 console.log('Image successfully saved as %s', imageName);
                 gm(imageName)
@@ -195,20 +194,18 @@ function codeSnipper(fileName, options = opts) {
                     .trim()
                     .borderColor(options.background)
                     .border(20, 20)
-                    .write(imageName, (err) => {
+                    .write(imageName, err => {
                         if (err) {
-                            throw new Error(err)
+                            throw new Error(err);
                         }
                     });
             } else {
-                throw new Error(err)
+                throw new Error(err);
             }
             return;
         });
-
     });
     return 0;
 }
-
 
 module.exports = codeSnipper;

@@ -23,8 +23,6 @@ var passedArguments = cli
     .epilog('© 2017')
     .argv;
 
-//initialize an empty object
-
 const options = {};
 
 //delete optional options
