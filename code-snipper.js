@@ -133,9 +133,7 @@ function generateHTML(sourceCode, options) {
     </head>
     <body>
     <pre>
-    <code>
-        ${sourceCode}
-    </code>
+    <code>${sourceCode}</code>
     </pre>
     </body}    
     </html>
@@ -185,7 +183,7 @@ function codeSnipper(fileName, options = opts) {
             if (!err) {
                 console.log('Image successfully saved as %s', imageName);
                 gm(imageName)
-                    .trim()
+                    // .trim()
                     .trim()
                     .borderColor(options.background)
                     .border(20, 20)
