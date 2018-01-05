@@ -47,7 +47,6 @@ const opts = {
  * @param fileName: Name of the file.
  * @returns string: '.js' or '.jsx'
  */
-
 function checkFileExtension(fileName) {
     if (fileName.endsWith('.js')) {
         return '.js';
@@ -55,13 +54,9 @@ function checkFileExtension(fileName) {
     return '';
 }
 
-function insertMissingOptions(options) {
-    return { ...opts, ...options };
-}
 /**
  * Prettify code based on the extension of the file.
  */
-
 const prettify = (source, ext) => {
     switch (ext) {
         case '.js': {
