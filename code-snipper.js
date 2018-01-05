@@ -183,7 +183,7 @@ function codeSnipper(fileName, options = opts) {
             if (!err) {
                 console.log('Image successfully saved as %s', imageName);
                 gm(imageName)
-                    // .trim()
+                    .trim()
                     .trim()
                     .borderColor(options.background)
                     .border(20, 20)
