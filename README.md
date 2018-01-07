@@ -198,9 +198,6 @@ You're welcome to fix any bugs,  or add new features. Just fork the project, wor
 
 **2.** Make a `local` copy, by cloning your forked copy.
 
-**3.** `Fix` whatever it is you think needs fixing.
+**3.** `Fix` whatever it is you think needs fixing. (or Add new features!)
 
 **4.** Send a PR against `master` branch.
-
-## Copyright
-© 2017 Made by Abhishek Soni. 
