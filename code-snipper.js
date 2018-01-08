@@ -146,18 +146,16 @@ function generateHTML(sourceCode, options) {
  */
 
 function codeSnipper(fileName, options = opts) {
-    options = {
-        ...opts,
-        ext: checkFileExtension(fileName),
-        ...options
-    };
+    options = Object.assign(
+        opts,
+        { ext: checkFileExtension(fileName) },
+        options);
 
     // Initialize webshot's configuration, setting resolution(zoomFactor) if passed.
-    let webshotConfig = {
+    let webshotConfig = Object.assign({
         siteType: 'html',
-        zoomFactor: options.resolution || 2.5,
-        ...options.webshotCustomConfig
-    };
+        zoomFactor: options.resolution || 2.5},
+        options.webshotCustomConfig || {});
 
     const imagePath = path.join(process.cwd(), fileName);
 
