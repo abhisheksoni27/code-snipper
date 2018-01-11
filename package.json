@@ -1,6 +1,6 @@
 {
   "name": "code-snipper",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Export code snippets as PNG",
   "main": "code-snipper.js",
   "scripts": {
@@ -13,7 +13,6 @@
     "gm": "^1.23.0",
     "prettier": "^0.22.0",
     "standard": "^10.0.2",
-    "taffydb": "^2.7.3",
     "untildify": "^3.0.2",
     "webshot": "^0.18.0",
     "yargs": "^7.0.2"
